@@ -1,23 +1,19 @@
 :root {
-  --bg-color: #0f172a;
-  /* Tailwind slate-900 */
-  --text-primary: #f8fafc;
-  /* Tailwind slate-50 */
-  --text-secondary: #94a3b8;
-  /* Tailwind slate-400 */
-
-  --primary-color: #3b82f6;
-  /* Tailwind blue-500 */
-  --primary-hover: #2563eb;
-
-  --accent-color: #8b5cf6; /* Tailwind violet-500 */
+  --bg-color: #faf7f2; /* Soft linen */
+  --text-primary: #433e38; /* Warm dark grey */
+  --text-secondary: #8c857b; /* Muted warm grey */
+  
+  --primary-color: #82a382; /* Sage green */
+  --primary-hover: #6e8f6e;
+  
+  --accent-color: #e8b07d; /* Soft apricot/wheat */
   --accent-glow: transparent;
 
-  --panel-bg: #1e293b; /* flat dark background for panels */
-  --panel-border: #334155;
-  --panel-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --panel-bg: #ffffff; /* Clean white */
+  --panel-border: #eae4d9;
+  --panel-shadow: 0 10px 30px -5px rgba(67, 62, 56, 0.08), 0 4px 6px -2px rgba(67, 62, 56, 0.04);
   
-  --danger: #ef4444; /* red-500 */
+  --danger: #d97777; /* Muted brick/coral */
 }
 
 * {
@@ -142,7 +138,7 @@ input:focus {
   height: 240px;
   border-radius: 50%;
   background: var(--panel-bg);
-  border: 2px solid var(--panel-border);
+  border: 1px solid var(--panel-border);
   box-shadow: var(--panel-shadow);
   display: flex;
   flex-direction: column;
@@ -150,7 +146,7 @@ input:focus {
   align-items: center;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.2s, border-color 0.2s;
 }
 
 .central-radio.broadcasting:hover {
@@ -177,9 +173,9 @@ input:focus {
   align-items: center;
   pointer-events: auto;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, border-color 0.2s, background-color 0.2s;
   background: var(--panel-bg);
-  border: 2px solid var(--panel-border);
+  border: 1px solid var(--panel-border);
   box-shadow: var(--panel-shadow);
 }
 
@@ -320,8 +316,8 @@ input:focus {
   position: absolute;
   top: 20px;
   background: var(--panel-bg);
-  border: 1px solid #22c55e;
-  color: #22c55e;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
   padding: 10px 24px;
   border-radius: 8px;
   display: flex;
@@ -348,7 +344,7 @@ input:focus {
 .listening-pulse {
   width: 10px;
   height: 10px;
-  background: #22c55e;
+  background: var(--primary-color);
   border-radius: 50%;
   animation: pulse-green 1.5s infinite;
 }

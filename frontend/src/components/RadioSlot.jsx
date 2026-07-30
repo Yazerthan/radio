@@ -19,7 +19,7 @@ function RadioSlot({ radio, position, onClick, status }) {
   if (status === 'broadcasting') {
     borderColor = 'var(--danger)';
   } else if (status === 'listening') {
-    borderColor = '#22c55e'; // green
+    borderColor = 'var(--primary-color)';
   }
 
   const style = {
