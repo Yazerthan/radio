@@ -1,19 +1,26 @@
 :root {
-  --bg-color: #faf7f2; /* Soft linen */
-  --text-primary: #433e38; /* Warm dark grey */
-  --text-secondary: #8c857b; /* Muted warm grey */
-  
-  --primary-color: #82a382; /* Sage green */
+  --bg-color: #faf7f2;
+  /* Soft linen */
+  --text-primary: #433e38;
+  /* Warm dark grey */
+  --text-secondary: #8c857b;
+  /* Muted warm grey */
+
+  --primary-color: #82a382;
+  /* Sage green */
   --primary-hover: #6e8f6e;
-  
-  --accent-color: #e8b07d; /* Soft apricot/wheat */
+
+  --accent-color: #e8b07d;
+  /* Soft apricot/wheat */
   --accent-glow: transparent;
 
-  --panel-bg: #ffffff; /* Clean white */
+  --panel-bg: #ffffff;
+  /* Clean white */
   --panel-border: #eae4d9;
   --panel-shadow: 0 10px 30px -5px rgba(67, 62, 56, 0.08), 0 4px 6px -2px rgba(67, 62, 56, 0.04);
-  
-  --danger: #d97777; /* Muted brick/coral */
+
+  --danger: #d97777;
+  /* Muted brick/coral */
 }
 
 * {
@@ -29,7 +36,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* App is a fixed viewport */
+  overflow: hidden;
+  /* App is a fixed viewport */
 }
 
 #root {
@@ -39,8 +47,8 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  background-image: 
-    radial-gradient(circle 500px at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0) 100%),
+  background-image:
+    radial-gradient(circle 600px at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.6) 60%, rgba(255, 255, 255, 0) 100%),
     url('/medias/fond.jpg');
   background-size: cover;
   background-position: center;
@@ -231,7 +239,7 @@ input:focus {
   font-weight: 600;
   white-space: nowrap;
   color: var(--text-primary);
-  text-shadow: 0 1px 3px rgba(255,255,255,0.9);
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
   z-index: 2;
 }
 
@@ -340,9 +348,17 @@ input:focus {
 }
 
 @keyframes pulse-glow {
-  0% { border-color: var(--panel-border); }
-  50% { border-color: var(--danger); }
-  100% { border-color: var(--panel-border); }
+  0% {
+    border-color: var(--panel-border);
+  }
+
+  50% {
+    border-color: var(--danger);
+  }
+
+  100% {
+    border-color: var(--panel-border);
+  }
 }
 
 .broadcasting {
@@ -388,7 +404,15 @@ input:focus {
 }
 
 @keyframes pulse-green {
-  0% { opacity: 1; }
-  50% { opacity: 0.4; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
