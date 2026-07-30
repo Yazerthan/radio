@@ -1,14 +1,21 @@
 import { io } from 'socket.io-client';
 
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || `${window.location.protocol}//${window.location.hostname}:3000`;
-export const socket = io(BACKEND_URL);
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
+export const socket = io(BACKEND_URL, {
+  path: '/socket.io/'
+});
 
 let peerConnections = {}; // targetSocketId -> RTCPeerConnection
 let currentRadioId = null;
 
 const configuration = {
   iceServers: [
-    { urls: 'stun:stun.l.google.com:19302' }
+    { urls: 'stun:stun.l.google.com:19302' },
+    ...(import.meta.env.VITE_TURN_URL ? [{
+      urls: import.meta.env.VITE_TURN_URL,
+      username: import.meta.env.VITE_TURN_USER,
+      credential: import.meta.env.VITE_TURN_PASSWORD
+    }] : [])
   ]
 };
 

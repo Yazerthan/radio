@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*', // For development, allow all. In production, restrict to frontend domain.
+    origin: process.env.CORS_ORIGIN || '*',
     methods: ['GET', 'POST']
   }
 });
