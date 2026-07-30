@@ -98,6 +98,17 @@ io.on('connection', (socket) => {
     }
   });
 
+  socket.on('stop_radio', (data) => {
+    const { radioId } = data;
+    const radio = radios[radioId];
+    if (radio && radio.broadcasterSocketId === socket.id) {
+      // Broadcaster manually stopped the radio
+      io.to(`radio_${radioId}_listener`).emit('radio_ended', { radioId });
+      delete radios[radioId];
+      io.emit('radios_updated');
+    }
+  });
+
   // WebRTC Signaling
   socket.on('webrtc_offer', (data) => {
     const { targetSocketId, offer, radioId } = data;

@@ -85,7 +85,7 @@ function App() {
   };
 
   const handleStopBroadcasting = () => {
-    window.dispatchEvent(new CustomEvent('stop_current_connection'));
+    window.dispatchEvent(new CustomEvent('stop_current_connection', { detail: { isBroadcaster: true } }));
     setIsBroadcasting(false);
     setCurrentRadioId(null);
   };

@@ -113,19 +113,23 @@ window.addEventListener('join_radio', (e) => {
   });
 });
 
-window.addEventListener('stop_current_connection', () => {
+window.addEventListener('stop_current_connection', (e) => {
+  const isBroadcaster = e?.detail?.isBroadcaster;
   if (currentRadioId) {
-    socket.emit('leave_radio', { radioId: currentRadioId });
-    // close all peer connections
-    Object.values(peerConnections).forEach(pc => pc.close());
-    peerConnections = {};
-    const remoteAudio = document.getElementById('remoteAudio');
-    if (remoteAudio) remoteAudio.srcObject = null;
-    currentRadioId = null;
-    if (window.localStream) {
-      window.localStream.getTracks().forEach(track => track.stop());
-      window.localStream = null;
+    if (isBroadcaster) {
+      socket.emit('stop_radio', { radioId: currentRadioId });
+    } else {
+      socket.emit('leave_radio', { radioId: currentRadioId });
     }
+    currentRadioId = null;
+  }
+  Object.values(peerConnections).forEach(pc => pc.close());
+  peerConnections = {};
+  const remoteAudio = document.getElementById('remoteAudio');
+  if (remoteAudio) remoteAudio.srcObject = null;
+  if (window.localStream) {
+    window.localStream.getTracks().forEach(t => t.stop());
+    window.localStream = null;
   }
 });
 
