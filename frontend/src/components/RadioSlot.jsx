@@ -15,21 +15,17 @@ const renderIcon = (name, props) => {
 
 function RadioSlot({ radio, position, onClick, status }) {
   // We need to offset the position by half the slot width/height (50px) since the container is absolute and origin is top-left
-  let borderColor = 'rgba(255,255,255,0.1)';
-  let boxShadow = 'none';
+  let borderColor = 'var(--panel-border)';
   if (status === 'broadcasting') {
-    borderColor = 'var(--accent-color)';
-    boxShadow = '0 0 30px var(--accent-glow)';
+    borderColor = 'var(--danger)';
   } else if (status === 'listening') {
     borderColor = '#22c55e'; // green
-    boxShadow = '0 0 30px rgba(34, 197, 94, 0.4)';
   }
 
   const style = {
     left: `calc(50% + ${position.x}px - 50px)`,
     top: `calc(50% + ${position.y}px - 50px)`,
-    borderColor,
-    boxShadow
+    borderColor
   };
 
   return (
