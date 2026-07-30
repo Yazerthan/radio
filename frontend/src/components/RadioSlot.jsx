@@ -18,11 +18,12 @@ function RadioSlot({ radio, position, onClick, status }) {
 
   return (
     <div className="radio-slot" style={style} onClick={onClick}>
-      {radio.hasPassword && <Lock size={12} style={{ position: 'absolute', top: 10, right: 10, color: 'var(--text-secondary)' }} />}
-      <div className="slot-icon">
-        {/* radio.icon holds the rabbit name e.g. "lapin1" */}
-        <img src={`/medias/${radio.icon}.jpg`} alt={radio.name} className="rabbit-img" />
-      </div>
+      <img src={`/medias/${radio.icon}.jpg`} alt={radio.name} className="slot-rabbit-img" />
+      {radio.hasPassword && (
+        <div style={{ position: 'absolute', top: 0, left: 0, zIndex: 2, background: 'var(--danger)', color: '#fff', borderRadius: '50%', padding: '4px', display: 'flex' }}>
+          <Lock size={10} strokeWidth={3} />
+        </div>
+      )}
       <div className="slot-name" title={radio.name}>{radio.name}</div>
       <div className="listeners-badge">
         <Headphones size={10} />
