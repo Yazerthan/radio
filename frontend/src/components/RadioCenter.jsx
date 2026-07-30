@@ -17,11 +17,11 @@ function RadioCenter({ onCreateClick, isBroadcasting, onStopClick }) {
       >
         {isBroadcasting ? (
           <>
-            <Square className="radio-illustration" fill="currentColor" strokeWidth={1.5} />
-            <span style={{ color: 'var(--danger)', fontWeight: 'bold', marginTop: '10px' }}>STOP</span>
+            <img src="/medias/carotte.jpg" alt="Carrot" className="carrot-img" style={{ opacity: 0.5 }} />
+            <span style={{ position: 'absolute', color: 'var(--danger)', fontWeight: 'bold', fontSize: '20px', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>STOP</span>
           </>
         ) : (
-          <Radio className="radio-illustration" strokeWidth={1.5} />
+          <img src="/medias/carotte.jpg" alt="Carrot" className="carrot-img" />
         )}
       </button>
     </div>

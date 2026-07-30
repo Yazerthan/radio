@@ -134,6 +134,7 @@ function App() {
             setCurrentRadioId(id);
             setIsBroadcasting(true);
           }}
+          activeRadios={radios}
         />
       )}
       

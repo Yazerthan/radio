@@ -149,6 +149,22 @@ input:focus {
   transition: transform 0.2s, border-color 0.2s;
 }
 
+.carrot-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.2s;
+}
+
+.rabbit-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--panel-border);
+}
+
 .central-radio.broadcasting:hover {
   transform: scale(1.05);
 }

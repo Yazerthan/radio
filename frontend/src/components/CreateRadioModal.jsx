@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import { X, Music, Radio, Headphones, Mic, Speaker, Disc } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import { socket } from '../services/webrtc';
 
-const ICONS = ['music', 'radio', 'headphones', 'mic', 'speaker', 'disc'];
+const RABBITS = ['lapin1', 'lapin2', 'lapin3', 'lapin4', 'lapin5', 'lapin6', 'lapin7'];
 
-const renderIcon = (name, props) => {
-  switch(name) {
-    case 'music': return <Music {...props} />;
-    case 'radio': return <Radio {...props} />;
-    case 'headphones': return <Headphones {...props} />;
-    case 'mic': return <Mic {...props} />;
-    case 'speaker': return <Speaker {...props} />;
-    case 'disc': return <Disc {...props} />;
-    default: return <Music {...props} />;
-  }
-};
-
-function CreateRadioModal({ onClose, onSuccess }) {
+function CreateRadioModal({ onClose, onSuccess, activeRadios }) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [icon, setIcon] = useState(ICONS[0]);
+  const usedIcons = activeRadios.map(r => r.icon);
+  const availableRabbits = RABBITS.filter(r => !usedIcons.includes(r));
+  const [icon, setIcon] = useState(availableRabbits.length > 0 ? availableRabbits[0] : RABBITS[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // If the available rabbits change and current icon is used, pick a new one
+  useEffect(() => {
+    if (usedIcons.includes(icon) && availableRabbits.length > 0) {
+      setIcon(availableRabbits[0]);
+    }
+  }, [activeRadios, icon]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim()) return;
+    if (usedIcons.includes(icon)) {
+      setError("Ce lapin est déjà utilisé !");
+      return;
+    }
 
     setLoading(true);
     setError(null);
@@ -94,20 +95,25 @@ function CreateRadioModal({ onClose, onSuccess }) {
           <div className="form-group">
             <label>Icon</label>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-              {ICONS.map(i => (
-                <div 
-                  key={i} 
-                  onClick={() => setIcon(i)}
-                  style={{ 
-                    cursor: 'pointer', 
-                    padding: '8px',
-                    borderRadius: '8px',
-                    background: icon === i ? 'var(--primary-color)' : 'transparent'
-                  }}
-                >
-                  {renderIcon(i, { size: 24 })}
-                </div>
-              ))}
+              {RABBITS.map(r => {
+                const isUsed = usedIcons.includes(r);
+                return (
+                  <div 
+                    key={r} 
+                    onClick={() => !isUsed && setIcon(r)}
+                    style={{ 
+                      cursor: isUsed ? 'not-allowed' : 'pointer', 
+                      padding: '8px',
+                      borderRadius: '8px',
+                      background: icon === r ? 'var(--primary-color)' : 'transparent',
+                      opacity: isUsed ? 0.3 : 1
+                    }}
+                    title={isUsed ? "Déjà utilisé" : ""}
+                  >
+                    <img src={`/medias/${r}.jpg`} alt={r} className="rabbit-img" />
+                  </div>
+                );
+              })}
             </div>
           </div>
 

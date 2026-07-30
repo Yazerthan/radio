@@ -1,17 +1,5 @@
 import React from 'react';
-import { Headphones, Lock, Music, Radio, Mic, Speaker, Disc } from 'lucide-react';
-
-const renderIcon = (name, props) => {
-  switch(name) {
-    case 'music': return <Music {...props} />;
-    case 'radio': return <Radio {...props} />;
-    case 'headphones': return <Headphones {...props} />;
-    case 'mic': return <Mic {...props} />;
-    case 'speaker': return <Speaker {...props} />;
-    case 'disc': return <Disc {...props} />;
-    default: return <Music {...props} />;
-  }
-};
+import { Headphones, Lock } from 'lucide-react';
 
 function RadioSlot({ radio, position, onClick, status }) {
   // We need to offset the position by half the slot width/height (50px) since the container is absolute and origin is top-left
@@ -31,7 +19,10 @@ function RadioSlot({ radio, position, onClick, status }) {
   return (
     <div className="radio-slot" style={style} onClick={onClick}>
       {radio.hasPassword && <Lock size={12} style={{ position: 'absolute', top: 10, right: 10, color: 'var(--text-secondary)' }} />}
-      <div className="slot-icon">{renderIcon(radio.icon, { size: 32 })}</div>
+      <div className="slot-icon">
+        {/* radio.icon holds the rabbit name e.g. "lapin1" */}
+        <img src={`/medias/${radio.icon}.jpg`} alt={radio.name} className="rabbit-img" />
+      </div>
       <div className="slot-name" title={radio.name}>{radio.name}</div>
       <div className="listeners-badge">
         <Headphones size={10} />
