@@ -133,6 +133,7 @@ function App() {
             setIsModalOpen(false);
             setCurrentRadioId(id);
             setIsBroadcasting(true);
+            window.dispatchEvent(new CustomEvent('broadcaster_started', { detail: { radioId: id } }));
           }}
           activeRadios={radios}
         />

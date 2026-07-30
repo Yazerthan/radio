@@ -113,6 +113,10 @@ window.addEventListener('join_radio', (e) => {
   });
 });
 
+window.addEventListener('broadcaster_started', (e) => {
+  currentRadioId = e.detail.radioId;
+});
+
 window.addEventListener('stop_current_connection', (e) => {
   const isBroadcaster = e?.detail?.isBroadcaster;
   if (currentRadioId) {
