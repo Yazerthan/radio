@@ -39,6 +39,12 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
+  background-image: 
+    radial-gradient(circle 500px at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.6) 40%, rgba(255, 255, 255, 0) 100%),
+    url('/medias/fond.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Panel Utilities */
