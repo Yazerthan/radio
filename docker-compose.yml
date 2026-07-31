@@ -1,34 +1,27 @@
 services:
   backend:
     build: ./backend
-    container_name: radio-backend-dev
-    command: node --watch server.js
-    ports:
-      - "3000:3000"
+    container_name: radio-backend
     environment:
       - PORT=3000
-      - CORS_ORIGIN=*
-    volumes:
-      - ./backend:/app
-      # Prevents host node_modules from overwriting container node_modules
-      - /app/node_modules
+      - CORS_ORIGIN={CORS_ORIGIN}
     restart: unless-stopped
 
   frontend:
     build:
       context: ./frontend
-      target: build # Targets the Node.js stage, skipping Nginx
-    container_name: radio-frontend-dev
-    command: npm run dev -- --host 0.0.0.0
-    ports:
-      - "5173:5173"
-    environment:
-      - VITE_TURN_URL=
-      - VITE_TURN_USER=
-      - VITE_TURN_PASSWORD=
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      args:
+        - VITE_TURN_URL={METERED_TURN_URL}
+        - VITE_TURN_USER={METERED_TURN_USER}
+        - VITE_TURN_PASSWORD={METERED_TURN_PSWD}
+    container_name: radio-frontend
     depends_on:
       - backend
     restart: unless-stopped
+    networks:
+      - default
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
