@@ -52,8 +52,15 @@ function App() {
   };
 
   const handleSlotClick = (radio) => {
+    // Débloque l'audio sur mobile (Safari/Chrome) lors du clic utilisateur
+    const remoteAudio = document.getElementById('remoteAudio');
+    if (remoteAudio) {
+      remoteAudio.play().catch(() => {});
+    }
+
     if (currentRadioId === radio.id) {
-      // Already connected
+      // Already connected -> leave radio
+      window.dispatchEvent(new CustomEvent('stop_current_connection'));
       return;
     }
     if (currentRadioId) {
@@ -95,36 +102,32 @@ function App() {
 
   return (
     <div className="app-container">
-      {isListening && (
-        <div className="listening-banner">
-          <div className="listening-pulse"></div>
-          Vous écoutez actuellement : {activeRadio.name}
+      <div className="scale-wrapper">
+        <div className="radio-orbit">
+          {radios.map((radio, index) => {
+            const pos = getSlotPosition(index, radios.length);
+            let status = 'none';
+            if (currentRadioId === radio.id) {
+              status = isBroadcasting ? 'broadcasting' : 'listening';
+            }
+            return (
+              <RadioSlot 
+                key={radio.id} 
+                radio={radio} 
+                position={pos} 
+                onClick={() => handleSlotClick(radio)}
+                status={status}
+              />
+            );
+          })}
         </div>
-      )}
-      <div className="radio-orbit">
-        {radios.map((radio, index) => {
-          const pos = getSlotPosition(index, radios.length);
-          let status = 'none';
-          if (currentRadioId === radio.id) {
-            status = isBroadcasting ? 'broadcasting' : 'listening';
-          }
-          return (
-            <RadioSlot 
-              key={radio.id} 
-              radio={radio} 
-              position={pos} 
-              onClick={() => handleSlotClick(radio)}
-              status={status}
-            />
-          );
-        })}
-      </div>
 
-      <RadioCenter 
-        onCreateClick={handleCreateRadioClick} 
-        isBroadcasting={isBroadcasting} 
-        onStopClick={handleStopBroadcasting}
-      />
+        <RadioCenter 
+          onCreateClick={handleCreateRadioClick} 
+          isBroadcasting={isBroadcasting} 
+          onStopClick={handleStopBroadcasting}
+        />
+      </div>
 
       {isModalOpen && (
         <CreateRadioModal 
@@ -139,7 +142,7 @@ function App() {
         />
       )}
       
-      <audio id="remoteAudio" autoPlay></audio>
+      <audio id="remoteAudio" autoPlay playsInline></audio>
     </div>
   );
 }

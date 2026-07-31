@@ -4,16 +4,16 @@ services:
     container_name: radio-backend
     environment:
       - PORT=3000
-      - CORS_ORIGIN=https://carotte.nathan-baud.fr
+      - CORS_ORIGIN={CORS_ORIGIN}
     restart: unless-stopped
 
   frontend:
     build:
       context: ./frontend
       args:
-        - VITE_TURN_URL=turn:radio-carotte.metered.ca:80
-        - VITE_TURN_USER=026613859e4476774d382fa9
-        - VITE_TURN_PASSWORD=RqlQrvfVGraJ2UmI
+        - VITE_TURN_URL={METERED_TURN_URL}
+        - VITE_TURN_USER={METERED_TURN_USER}
+        - VITE_TURN_PASSWORD={METERED_TURN_PSWD}
     container_name: radio-frontend
     depends_on:
       - backend

@@ -29,15 +29,19 @@
   padding: 0;
 }
 
-body {
+body, html {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-primary);
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  /* App is a fixed viewport */
+  position: fixed; /* Prevents pull-to-refresh and elastic scrolling on iOS */
+  touch-action: none; /* Prevents browser handling of gestures like pinch-zoom */
 }
 
 #root {
@@ -103,6 +107,34 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.scale-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 800px) {
+  .scale-wrapper {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 600px) {
+  .scale-wrapper {
+    transform: scale(0.65);
+  }
+}
+
+@media (max-width: 400px) {
+  .scale-wrapper {
+    transform: scale(0.5);
+  }
 }
 
 /* Orbit Layout */

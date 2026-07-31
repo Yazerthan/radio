@@ -59,6 +59,7 @@ socket.on('webrtc_offer', async ({ broadcasterSocketId, offer, radioId }) => {
     const remoteAudio = document.getElementById('remoteAudio');
     if (remoteAudio && event.streams[0]) {
       remoteAudio.srcObject = event.streams[0];
+      remoteAudio.play().catch(e => console.error("Audio playback blocked:", e));
     }
   };
 
