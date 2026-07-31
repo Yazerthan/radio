@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    container_name: radio-backend
+    environment:
+      - PORT=3000
+      - CORS_ORIGIN={CORS_ORIGIN}
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - VITE_TURN_URL={METERED_TURN_URL}
+        - VITE_TURN_USER={METERED_TURN_USER}
+        - VITE_TURN_PASSWORD={METERED_TURN_PSWD}
+    container_name: radio-frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true
